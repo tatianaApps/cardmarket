@@ -52,7 +52,7 @@ class UsersController extends Controller
                 $response['msg'] = "Se ha producido un error: ".$e->getMessage();
             }
             return response()->json($response);
-            }
+        }
     }
 
     public function login(Request $req){
@@ -119,13 +119,12 @@ class UsersController extends Controller
             for($i = 0; $i < $passwordLength; $i++){
                 $newPassword .= $password[rand(0, $passwordCharCount -1)];
             }
-                  
+
             //Guardamos al usuario con la nueva contraseña cifrada
             $user->password = Hash::make($newPassword);
             $user->save();
-            $response['msg'] = "Nueva contraseña generada: ".$user->password;
-
-        }
+            $response['msg'] = "Nueva contraseña generada: ".$newPassword;
+        } 
         else{
             $response['status'] = 0;
             $response['msg'] = "Usuario no encontrado";
@@ -133,5 +132,4 @@ class UsersController extends Controller
         
         return response()->json($response);
     }
-
 }

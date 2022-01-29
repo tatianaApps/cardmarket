@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCollectionsTable extends Migration
+class CreateCardsSaleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateCollectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
+        Schema::create('cards_sale', function (Blueprint $table) {
             $table->id();
+            $table->unsignedbigInteger('card_id');
+            $table->integer('quantity');
+            $table->float('total_price');
+            $table->foreign('card_id')->references('id')->on('cards_collections');
             $table->timestamps();
+
         });
     }
 
@@ -26,6 +31,6 @@ class CreateCollectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists('cards_sale');
     }
 }

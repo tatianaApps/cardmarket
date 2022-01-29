@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCardsSaleTable extends Migration
+class CreateCollectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateCardsSaleTable extends Migration
      */
     public function up()
     {
-        Schema::create('cards_sale', function (Blueprint $table) {
+        Schema::create('collections', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('simbol');
+            $table->date('edition_date');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateCardsSaleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards_sale');
+        Schema::dropIfExists('collections');
     }
 }

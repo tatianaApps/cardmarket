@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CardsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::middleware(['apitoken','permissions'])->prefix('users')->group(function(){
-    //Route::get('/listEmployee',[UsersController::class, 'listEmployee']);
+    Route::put('/registerCollections',[CardsController::class, 'registerCollections']);
+    Route::put('/registerCards',[CardsController::class, 'registerCards']);
+    //Route::get('/listEmployee',[UsersController::class, 'listEmployee']); //búsqueda
 });
 
 Route::put('/registerUser',[UsersController::class,'registerUser']);
@@ -29,6 +33,4 @@ Route::prefix('users')->group(function(){
     Route::post('/recoverPassword',[UsersController::class,'recoverPassword']);
 });
 
-/*Route::middleware('apitoken')->prefix('users')->group(function(){
-    Route::get('/seeProfile',[UsersController::class, 'seeProfile']);
-});*/
+

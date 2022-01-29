@@ -15,16 +15,25 @@ class VerifyApiToken
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $req, Closure $next)
     {
-        //Comprobar los permisos    
-        if($req->user->rol =='administrator' || $req->user->rol =='human_resources'){
-            return $next($req);
-            $response['msg'] = "Perfil validado";
-        }else{
-             $response['msg'] = "No tienes permisos para realizar esta función";
+        if(isset($req->api_token)){
+            //Buscar al usuario
+            $apitoken = $req->api_token; 
             
+            //Pasar usuario
+            $user = User::where('api_token', $apitoken)->first();
+            if($user){
+                $response['msg'] = "Token correcto";
+                $req->user = $user;
+                return $next($req);
+            }else{
+                $response['msg'] = "Token incorrecto";
+            }
+        }else{
+            $response['msg'] = "Token no introducido";
         }
+        
         return response()->json($response);
     }
 }
