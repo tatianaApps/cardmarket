@@ -16,9 +16,11 @@ class CreateCardsSaleTable extends Migration
         Schema::create('cards_sale', function (Blueprint $table) {
             $table->id();
             $table->unsignedbigInteger('card_id');
+            $table->unsignedbigInteger('seller_id');
             $table->integer('quantity');
             $table->float('total_price');
             $table->foreign('card_id')->references('id')->on('cards_collections');
+            $table->foreign('seller_id')->references('id')->on('users');
             $table->timestamps();
 
         });

@@ -16,20 +16,21 @@ use App\Http\Controllers\CardsController;
 |
 */
 
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-
-Route::middleware(['apitoken','permissions'])->prefix('users')->group(function(){
+Route::middleware(['apitoken','permissions'])->prefix('cards')->group(function(){
     Route::put('/registerCollections',[CardsController::class, 'registerCollections']);
     Route::put('/registerCards',[CardsController::class, 'registerCards']);
-    //Route::get('/listEmployee',[UsersController::class, 'listEmployee']); //búsqueda
 });
 
-Route::put('/registerUser',[UsersController::class,'registerUser']);
-Route::post('login',[UsersController::class,'login']);
+Route::middleware(['apitoken','permissionsSales'])->prefix('cards')->group(function(){
+    Route::post('/searchCards',[CardsController::class, 'searchCards']);
+    Route::put('/sellCards',[CardsController::class, 'sellCards']);
+});
+
+Route::post('/login',[UsersController::class,'login']);
+Route::post('/buyCards',[CardsController::class,'buyCards']);
 
 Route::prefix('users')->group(function(){
+    Route::put('/registerUser',[UsersController::class,'registerUser']);
     Route::post('/recoverPassword',[UsersController::class,'recoverPassword']);
 });
 
