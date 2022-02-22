@@ -96,9 +96,6 @@ class UsersController extends Controller
         $data = $req->getContent();
         $data = json_decode($data);
 
-        //Buscar el email
-        $email = $req->email;
-
         //Encontrar al usuario con ese email
         $user = User::where('email', '=', $data->email)->first();
 

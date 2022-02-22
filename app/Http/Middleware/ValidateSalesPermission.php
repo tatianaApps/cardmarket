@@ -18,7 +18,7 @@ class ValidateSalesPermission
     public function handle(Request $req, Closure $next)
     {
         //Comprobar los permisos
-        if ($req->user->rol == 'professional') { //para ver si es particular o profesional y te deje pasar al controller
+        if ($req->user->rol == 'professional') { 
             Log::info("Validación middleware perfil profesional completado");
             return $next($req);
         } else if ($req->user->rol == 'particular') {
